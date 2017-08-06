@@ -32,6 +32,15 @@
             <div class="card-footer card-footer-right">Powered by CKylinMC</div>
             <div class="clear"></div>
         </div>
+        <div id="guide-result" class="card" style="display:none">
+            <div class="card-header">生成结果</div>
+            <div class="card-body">
+                <h3 id="res-kwd"></h3>
+                <input readonly style="width:100%" id="res-lnk"></input><input style="display:none" id="res-lnky"></input>
+            </div>
+            <div class="card-footer card-footer-right"><button data-clipboard-target="#res-lnky" id="copyBtn">复制结果</button></div>
+            <div class="clear"></div>
+        </div>
         <div id="stepa" class="card" style="display:none">
             <!-- <div id="stepa" class="card"> -->
             <div class="card-header">第一步：访问 <b><span id="search-url"></span></b></div>
@@ -62,12 +71,13 @@
             </center>
         </footer>
         <script src='assets/jquery-2.1.1.min.js'></script>
+        <script src="assets/clipboard.js"></script>
         <script src='assets/dialog.js'></script>
         <script src='assets/xss.js'></script>
         <script src='assets/kymd.js'></script>
         <script src='assets/tools.js'></script>
         <script>
-			$("#header-title").html('ERROR');
+            $("#header-title").html('ERROR');
             if (document.getElementById('gethost')) {
                 var host = 'localhost';
                 if (location.host) host = location.host;
@@ -113,9 +123,21 @@
                 }), 4000);
             }
 
+            var clipboard = new Clipboard("#copyBtn");
+
+            clipboard.on('success', function(e) {
+                dialoger('成功复制:  ' + e.text);
+                e.clearSelection();
+            });
+
+            clipboard.on('error', function(e) {
+                dialoger('复制失败，请手动复制');
+                e.clearSelection();
+            });
+
             function info() {
                 dialoger(
-                    "本页面由<a href='https://github.com/Cansll'>CKylinMC</a>受<a href='http://zh.lmgtfy.com'>lmgtfy</a>启发而制作。<br>所有搜索引擎链接均非CKylinMC所有。本页面使用的kymd框架为CKylinMC自己开发，而使用的jquery、dialog-polyfill、xss库均为其他开发者的开源库。MD设计由Google Inc所有。使用的动态图片素材为CKylinMC录制。本页面基于GPLv3协议开源。",
+                    "本页面由<a href='https://github.com/Cansll'>CKylinMC</a>受<a href='http://zh.lmgtfy.com'>lmgtfy</a>启发而制作。<br>所有搜索引擎链接均非CKylinMC所有。本页面使用的kymd框架为CKylinMC自己开发，而使用的jquery、dialog-polyfill、xss、clipboard库均为其他开发者的开源库。MD设计由Google Inc所有。使用的动态图片素材为CKylinMC录制。本页面基于GPLv3协议开源。",
                     "关于本页面"
                 );
             }

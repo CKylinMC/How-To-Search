@@ -89,13 +89,17 @@ function generate(display = true) {
     } else {
         var param = "?s=" + se + "&wd=" + encodeURI(kwd);
         var link = baseLink + param;
-        if (display) dialoger('<input onfocus="this.select()" readonly>' + link + '</input>', "生成的地址");
+        if (display) dialoger('<input readonly>' + link + '</input><br>', "生成的地址");
+        document.getElementById('res-lnk').value = link;
+        document.getElementById('res-lnky').value = link;
+        document.getElementById('res-kwd').innerHTML = filterXSS(keyword);
+        document.getElementById('guide-result').style.display = '';
         return link;
     }
 }
 
 function previewit() {
-    var link = generate();
+    var link = generate(false);
     if (!link) {
         dialoger('需要填写搜索关键字', "关键字不能为空");
     } else {
