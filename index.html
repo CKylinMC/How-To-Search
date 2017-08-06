@@ -5,8 +5,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title>如何寻找问题的答案？</title>
-    <link rel="Stylesheet" type="text/css" href="./assets/dialog.css" />
-    <link rel="Stylesheet" type="text/css" href="./assets/kymd.css" />
+    <link rel="Stylesheet" type="text/css" href="assets/dialog.css" />
+    <link rel="Stylesheet" type="text/css" href="assets/kymd.css" />
 </head>
 
 <body class="preload">
@@ -61,12 +61,13 @@
                 <font size="small" color="#a9a9a9"><span id='gethost'></span><br>Powered by CKylinMC<br><span onclick="info()">更多信息</span></font>
             </center>
         </footer>
-        <script src='./assets/jquery-2.1.1.min.js'></script>
-        <script src='./assets/dialog.js'></script>
-        <script src='./assets/xss.js'></script>
-        <script src='./assets/kymd.js'></script>
-        <script src='./assets/tools.js'></script>
+        <script src='assets/jquery-2.1.1.min.js'></script>
+        <script src='assets/dialog.js'></script>
+        <script src='assets/xss.js'></script>
+        <script src='assets/kymd.js'></script>
+        <script src='assets/tools.js'></script>
         <script>
+			$("#header-title").html('ERROR');
             if (document.getElementById('gethost')) {
                 var host = 'localhost';
                 if (location.host) host = location.host;
@@ -81,14 +82,10 @@
                 var safekeyword = filterXSS(keyword);
                 var searchLink = getSearchSLink(search) + encodeURI(keyword);
                 var se = getSearch(search);
-                var imga = "./guide-anim/" + search + "_open.gif",
-                    imgb = "./guide-anim/" + search + "_keywd.png",
-                    imgc = "./guide-anim/" + search + "_button.gif";
-                preload(
-                    imga,
-                    imgb,
-                    imgc,
-                );
+                var imga = "guide-anim/" + search + "_open.gif",
+                    imgb = "guide-anim/" + search + "_keywd.png",
+                    imgc = "guide-anim/" + search + "_button.gif";
+                preload(imga, imgb, imgc);
                 $("#header-title").html('如何使用' + se + '查找您的问题？');
                 $("#search-url").html(getSearchLink(search));
                 $("#search-keywd").html(safekeyword);
