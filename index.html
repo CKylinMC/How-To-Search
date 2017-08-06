@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>如何寻找问题的答案？</title>
+    <link rel="Stylesheet" type="text/css" href="./assets/dialog.css" />
+    <link rel="Stylesheet" type="text/css" href="./assets/kymd.css" />
+</head>
+
+<body class="preload">
+    <header>
+        <div id="header">
+            <h1 id="header-title">Loading...</h1>
+        </div>
+    </header>
+    <div id="content">
+        <div id="guide" class="card" style="display:none">
+            <div class="card-header">告诉你的朋友怎样去搜索</div>
+            <div class="card-subtitle">制作一个这样的链接</div>
+            <div class="card-body">
+                <input id="input-key" placeholder="输入搜索内容..." style="vertical-align:bottom;display:inline-block;margin-bottom:6px;width:70%"></input>
+                <select id="input-se" style="vertical-align:bottom;display:inline-block;margin-bottom:6px;width:20%">
+                    <option selected="selected" value="baidu">百度</option>
+                    <option value="google">谷歌</option>
+                    <option value="bing">必应</option>
+                </select>
+                <br>
+                <button class="primary" onclick="generate()" style="display:inline-block;margin-bottom:6px;">生成</button> <button onclick="previewit()" style="display:inline-block;margin-bottom:6px;">预览</button>
+            </div>
+            <div class="card-footer card-footer-right">Powered by CKylinMC</div>
+            <div class="clear"></div>
+        </div>
+        <div id="stepa" class="card" style="display:none">
+            <!-- <div id="stepa" class="card"> -->
+            <div class="card-header">第一步：访问 <b><span id="search-url"></span></b></div>
+            <div class="card-body">
+                <span id="stepa-img"></span>
+            </div>
+        </div>
+        <div id="stepb" class="card" style="display:none">
+            <div class="card-header">第二步：输入 <b><span id="search-keywd"></span></b></div>
+            <div class="card-body">
+                <span id="stepb-img"></span>
+            </div>
+        </div>
+        <div id="stepc" class="card" style="display:none">
+            <div class="card-header">第三步：点击搜索按钮</div>
+            <div class="card-body">
+                <span id="stepc-img"></span>
+            </div>
+        </div>
+        <div id="stepd" class="card" style="display:none">
+            <div class="card-header">大功告成！</div>
+            <div class="card-body">
+            </div>
+        </div>
+        <footer>
+            <center>
+                <font size="small" color="#a9a9a9"><span id='gethost'></span><br>Powered by CKylinMC<br><span onclick="info()">更多信息</span></font>
+            </center>
+        </footer>
+        <script src='./assets/jquery-2.1.1.min.js'></script>
+        <script src='./assets/dialog.js'></script>
+        <script src='./assets/xss.js'></script>
+        <script src='./assets/kymd.js'></script>
+        <script src='./assets/tools.js'></script>
+        <script>
+            if (document.getElementById('gethost')) {
+                var host = 'localhost';
+                if (location.host) host = location.host;
+                $("#gethost").html(host);
+            }
+            var keyword = getUrlParam('wd');
+            var search = getSearchString(getUrlParam('s'));
+            if (!keyword) {
+                $("#header-title").html('如何寻找问题的答案？');
+                $("#guide").fadeIn();
+            } else {
+                var safekeyword = filterXSS(keyword);
+                var searchLink = getSearchSLink(search) + encodeURI(keyword);
+                var se = getSearch(search);
+                var imga = "./guide-anim/" + search + "_open.gif",
+                    imgb = "./guide-anim/" + search + "_keywd.png",
+                    imgc = "./guide-anim/" + search + "_button.gif";
+                preload(
+                    imga,
+                    imgb,
+                    imgc,
+                );
+                $("#header-title").html('如何使用' + se + '查找您的问题？');
+                $("#search-url").html(getSearchLink(search));
+                $("#search-keywd").html(safekeyword);
+                $("#stepa").fadeIn(400);
+                $("#stepa-img").html("<img style='max-width:100%;' src='" + imga + "' />");
+                setTimeout((function() {
+                    $("#stepa-img").fadeOut(200, (function() {
+                        $("#stepb").fadeIn(400);
+                        $("#stepb-img").html("<img style='max-width:100%;z-index:200;position:relative;top:0;' src='" + imgb + "' /><span style='z-index:400;position:relative;right:600px;bottom:70px;'>" + safekeyword + "</span>");
+                        setTimeout((function() {
+                            $("#stepb-img").fadeOut(200, (function() {
+                                $("#stepc").fadeIn(400);
+                                $("#stepc-img").html("<img style='max-width:100%;' src='" + imgc + "' />");
+                                setTimeout((function() {
+                                    $("#stepc-img").fadeOut(200, (function() {
+                                        $("#stepd").fadeIn(400);
+                                        setTimeout((function() {
+                                            location.href = searchLink;
+                                        }), 2000);
+                                    }));
+                                }), 4000);
+                            }));
+                        }), 4000);
+                    }));
+                }), 4000);
+            }
+
+            function info() {
+                dialoger(
+                    "本页面由<a href='https://github.com/Cansll'>CKylinMC</a>受<a href='http://zh.lmgtfy.com'>lmgtfy</a>启发而制作。<br>所有搜索引擎链接均非CKylinMC所有。本页面使用的kymd框架为CKylinMC自己开发，而使用的jquery、dialog-polyfill、xss库均为其他开发者的开源库。MD设计由Google Inc所有。使用的动态图片素材为CKylinMC录制。本页面基于GPLv3协议开源。",
+                    "关于本页面"
+                );
+            }
+        </script>
+</body>
+
+</html>
