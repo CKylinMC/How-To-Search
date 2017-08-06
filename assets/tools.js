@@ -92,7 +92,7 @@ function generate(display = true) {
         if (display) dialoger('<input readonly>' + link + '</input><br>', "生成的地址");
         document.getElementById('res-lnk').value = link;
         document.getElementById('res-lnky').value = link;
-        document.getElementById('res-kwd').innerHTML = filterXSS(keyword);
+        document.getElementById('res-kwd').innerHTML = filterXSS(kwd);
         document.getElementById('guide-result').style.display = '';
         return link;
     }
