@@ -1,0 +1,123 @@
+<!doctype html>
+<html>
+<head>
+<title>正在替你搜索</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta charset="utf-8">
+<style>
+*{
+transition: all 1s;
+}
+.hbr{
+margin-top: 50vh;
+}
+#a {
+padding: 0;
+margin: 0;
+margin-top: 110vh;
+width: 98vw;
+height: 88vh;
+}
+body{
+overflow: hidden;
+padding: 0;
+margin: 0;
+}
+p {
+padding: 12px;
+padding-bottom: 0px;
+margin: 0;
+width: 98vw;
+font-size: 40;
+}
+span{
+display: block;
+padding: 12px;
+padding-bottom: 1px;
+padding-top: 0px;
+}
+.float{
+position:fixed;
+bottom:-60px;
+background: white;
+width: 100%;
+height: 6vh;
+box-shadow: #9b9b9b8c 0px -3px 20px 4px;
+}
+</style>
+</style>
+</head>
+<body>
+<center>
+<div style="position:absolute" id="contents">
+<p id="title">加载中...</p><span id="sub"></span></div>
+<div id="a" style="position:absolute"><iframe id="frame" width="100%" height="100%" frameBorder=0 src="data:html," onload="loaded()"></iframe></div>
+</center>
+<div id="floate" class="float"><center><p style="text-align:center"><a href="#" onclick="opennew()">显示有问题？新页面打开</a><a href="#" style="float:right" onclick="hide()">隐藏</a></p></center></div>
+</body>
+<script>
+function getUrlParam(name) {
+    var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+    var r = window.location.search.substr(1).match(reg);
+    if (r !== null) {
+        try {
+            return decodeURIComponent(r[2]);
+        } catch (e) {
+            return null;
+        }
+    }
+    return null;
+}
+function loaded(){
+	var a = document.createElement("a")
+	var e = document.getElementById("frame");
+	a.href = e.src;
+	if(a.host=="") {
+		document.getElementById("title").innerHTML = "<div>请稍候...</div>";
+		//console.log(a.host);
+		return;
+	}
+	//console.log(1);
+	//console.log(a);
+	document.getElementById("title").innerHTML = "<b>就像这样，下次请自己搜索！</b>";
+	document.getElementById("sub").innerHTML = "<sub>这一点都不难，而且比问别人还快！</sub>";
+	document.getElementById("contents").style.marginTop = "0";
+	document.getElementById("contents").style.marginBottom = "0";
+	document.getElementById("a").style.marginTop = "10vh";
+	setTimeout((function(){
+		document.getElementById("contents").style.opacity = "0";
+		document.getElementById("contents").style.overflow = "hidden";
+		document.getElementById("a").style.width = "100vw";
+		document.getElementById("a").style.height = "100vh";
+		document.getElementById("a").style.marginTop = "0vh";
+		document.getElementById("floate").style.bottom = "0";
+	}),6000);
+}
+function setSrc(){
+//https://www.baidu.com/s?wd=
+setTimeout((function(){
+	var a = getUrlParam("wd");
+	if(a){
+		document.getElementById("frame").src = "https://www.baidu.com/s?wd="+encodeURIComponent(a);
+		document.title = a+" - 百度一下";
+	}else{
+		document.getElementById("frame").src = "data:html,";
+		document.title = "百度一下";
+		setTimeout((function(){
+			document.getElementById("title").innerHTML = "<div><h2>询问前请先百度一下~</h2></div>";
+		}),200);
+	}
+}),500);
+}
+function opennew(){
+	open(document.getElementById("frame").src);
+}
+function hide(){
+	document.getElementById("floate").style.bottom = "-60px";
+}
+
+	document.getElementById("contents").style.marginTop = "50vh";
+	//document.getElementById("contents").style.marginBottom = "51vh";
+setSrc();
+</script>
+</html>
