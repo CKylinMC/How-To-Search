@@ -36,9 +36,9 @@
             <div class="card-header">生成结果</div>
             <div class="card-body">
                 <h3 id="res-kwd"></h3>
-                <input readonly style="width:100%" id="res-lnk"></input><input style="display:none" id="res-lnky"></input>
+                <input readonly style="width:100%" id="res-lnk"></input><!--<input style="display:none" id="res-lnky"></input>-->
             </div>
-            <div class="card-footer card-footer-right"><button data-clipboard-target="#res-lnky" id="copyBtn">复制结果</button></div>
+            <div class="card-footer card-footer-right"><button data-clipboard-target="#res-lnk" id="copyBtn">复制结果</button></div>
             <div class="clear"></div>
         </div>
         <div id="stepa" class="card" style="display:none">
@@ -67,7 +67,7 @@
         </div>
         <footer>
             <center>
-                <font size="small" color="#a9a9a9"><span id='gethost'></span><br>Powered by CKylinMC<br><span onclick="info()">更多信息</span></font><br><script src="http://s13.cnzz.com/z_stat.php?id=1263432265&web_id=1263432265" language="JavaScript"></script>
+                <font size="small" color="#a9a9a9"><span id='gethost'></span><br>Powered by CKylinMC<br><span onclick="info()">更多信息</span></font>
             </center>
         </footer>
         <script src='assets/jquery-2.1.1.min.js'></script>
@@ -84,6 +84,7 @@
                 $("#gethost").html(host);
             }
             var keyword = getUrlParam('wd');
+            var demo = getUrlParam('demo');
             var search = getSearchString(getUrlParam('s'));
             if (!keyword) {
                 $("#header-title").html('如何寻找问题的答案？');
@@ -92,11 +93,12 @@
                 var safekeyword = filterXSS(keyword);
                 var searchLink = getSearchSLink(search) + encodeURI(keyword);
                 var se = getSearch(search);
+				//history.pushState({},document.title,getSearchSLink(search) + encodeURI(keyword));
                 var imga = "guide-anim/" + search + "_open.gif",
                     imgb = "guide-anim/" + search + "_keywd.png",
                     imgc = "guide-anim/" + search + "_button.gif";
                 preload(imga, imgb, imgc);
-                $("#header-title").html('如何使用' + se + '查找您的问题？');
+                $("#header-title").html('如何使用' + se + '查找您的问题？',searchLink);
                 $("#search-url").html(getSearchLink(search));
                 $("#search-keywd").html(safekeyword);
                 $("#stepa").fadeIn(400);
@@ -113,7 +115,8 @@
                                     $("#stepc-img").fadeOut(200, (function() {
                                         $("#stepd").fadeIn(400);
                                         setTimeout((function() {
-                                            location.href = searchLink;
+                                            if(!demo) location.href = searchLink;
+											else close();
                                         }), 2000);
                                     }));
                                 }), 4000);

@@ -78,7 +78,7 @@ function preload() {
     }
 }
 
-function generate(display = true) {
+function generate(display = true,demo = false) {
     var baseLink = location.href;
     var se = document.getElementById('input-se').value;
     var kwd = document.getElementById('input-key').value;
@@ -87,19 +87,22 @@ function generate(display = true) {
         if (display) dialoger('需要填写搜索关键字', "关键字不能为空");
         return false;
     } else {
-        var param = "?s=" + se + "&wd=" + encodeURI(kwd);
+		var param = "?";
+		if(demo) param+= "demo=1&";
+        param+= "s=" + se + "&wd=" + encodeURI(kwd);
         var link = baseLink + param;
-        if (display) dialoger('<input readonly>' + link + '</input><br>', "生成的地址");
+        if (display) dialoger('<input readonly value="' + link + '"></input><br>', "生成的地址");
         document.getElementById('res-lnk').value = link;
-        document.getElementById('res-lnky').value = link;
+        //document.getElementById('res-lnky').value = link;
         document.getElementById('res-kwd').innerHTML = filterXSS(kwd);
         document.getElementById('guide-result').style.display = '';
+		history.pushState({},document.title,link);
         return link;
     }
 }
 
 function previewit() {
-    var link = generate(false);
+    var link = generate(0,1);
     if (!link) {
         dialoger('需要填写搜索关键字', "关键字不能为空");
     } else {
