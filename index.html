@@ -116,7 +116,10 @@
                                         $("#stepd").fadeIn(400);
                                         setTimeout((function() {
                                             if(!demo) location.href = searchLink;
-											else close();
+											else {
+												close();
+												history.go(-1);//兼容FusionAPP
+											}
                                         }), 2000);
                                     }));
                                 }), 4000);
