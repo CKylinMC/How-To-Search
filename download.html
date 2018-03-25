@@ -26,6 +26,13 @@
             <div class="card-footer card-footer-right"><button id="dld" class="gray" onclick="download()" disabled="disabled">下载</button></div>
             <div class="clear"></div>
         </div>
+        <div id="problem" class="card" style="display: none">
+            <div class="card-subtitle">下载有问题？</div>
+            <div class="card-body">
+				选中链接并复制到浏览器打开即可：<br>
+				<input id="link" readonly value="test" onclick="this.select()"></input>
+            </div>
+        </div>
         <footer>
             <center>
                 <font size="small" color="#a9a9a9">Powered by CKylinMC</font>
@@ -60,6 +67,7 @@
 					$("#dld")[0].className = "primary";
 					$("#dld")[0].disabled = false;
 					$("#dld").html("下载");
+					$("#problem").show();
 				},5000);
 			}
 			function go(url){
