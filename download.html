@@ -17,7 +17,7 @@
     </header>
     <div id="content">
         <div id="guide" class="card">
-            <div class="card-header">下载一个客户端</div>
+            <div class="card-header">下载客户端</div>
             <div class="card-subtitle">客户端通过Fusion APP打包，请放心</div>
             <div class="card-body">
 				<h2 id="ver">最新版本：</h2>
@@ -45,6 +45,12 @@
 				$("#dld")[0].disabled = false;
 				$("#dld").html("下载");
 			});
+			tempKey = 0;
+			function downloadOnce(){
+				if(tempKey) return;
+				tempKey = 1;
+				download();
+			}
 			function download(){
 				$("#dld")[0].className = "gray";
 				$("#dld")[0].disabled = true;

@@ -118,10 +118,7 @@
                                         $("#stepd").fadeIn(400);
                                         setTimeout((function() {
                                             if(!demo) location.href = searchLink;
-											else {
-												close();
-												history.go(-1);//兼容FusionAPP
-											}
+											else location.href = "/";
                                         }), 2000);
                                     }));
                                 }), 4000);
