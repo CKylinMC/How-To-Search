@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>下载客户端版如何搜索</title>
+    <link rel="Stylesheet" type="text/css" href="assets/dialog.css" />
+    <link rel="Stylesheet" type="text/css" href="assets/kymd.css" />
+</head>
+
+<body class="preload">
+    <header>
+        <div id="header">
+            <h1 id="header-title">Loading...</h1>
+        </div>
+    </header>
+    <div id="content">
+        <div id="guide" class="card">
+            <div class="card-header">下载一个客户端</div>
+            <div class="card-subtitle">客户端通过Fusion APP打包，请放心</div>
+            <div class="card-body">
+				<h2 id="ver">最新版本：</h2>
+				<p id="text">加载中...</p>
+            </div>
+            <div class="card-footer card-footer-right"><button id="dld" class="gray" onclick="download()" disabled="disabled">下载</button></div>
+            <div class="clear"></div>
+        </div>
+        <footer>
+            <center>
+                <font size="small" color="#a9a9a9">Powered by CKylinMC</font>
+            </center>
+        </footer>
+        <script src='assets/jquery-2.1.1.min.js'></script>
+        <script src='assets/dialog.js'></script>
+        <script src='assets/kymd.js'></script>
+        <script src='assets/tools.js'></script>
+        <script src='fusion.js'></script>
+        <script>
+			$(document).ready(function(){
+				$("#header-title").html(document.title);
+				$("#ver").html(app.ver);
+				$("#text").html(app.msg.replace("\n","<br>"));
+				$("#dld")[0].className = "primary";
+				$("#dld")[0].disabled = false;
+				$("#dld").html("下载");
+			});
+			function download(){
+				$("#dld")[0].className = "gray";
+				$("#dld")[0].disabled = true;
+				$("#dld").html("正在下载...");
+				go(app.apk);
+				setTimeout(function(){
+					$("#dld")[0].className = "primary";
+					$("#dld")[0].disabled = false;
+					$("#dld").html("下载");
+				},5000);
+			}
+			function go(url){
+				location.href = url;
+			}
+        </script>
+</body>
+
+</html>
