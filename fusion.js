@@ -1,7 +1,7 @@
 var app = {
 	version: 6,
 	ver: "v1.2.6",
-	apk: "https://github.com/Cansll/How-To-Search/releases/download/v1.2/app.apk",
+	apk: "http://cansll.gitee.io/how-to-search/app/app.apk",
 	msg: "更新：\n\n* 新增检查更新功能\n* 修复bug",
 	tempKey: 0,
 	test: function(clientVer){
