@@ -76,8 +76,9 @@
         <script src='assets/xss.js'></script>
         <script src='assets/kymd.js'></script>
         <script src='assets/tools.js'></script>
-        <script src='fusion.js'></script>
+        <!--<script src='fusion.js'></script>-->
         <script>
+			$.getScript("fusion.js?ver="+Math.random());
             $("#header-title").html('ERROR');
             if (document.getElementById('gethost')) {
                 var host = 'localhost';
