@@ -40,7 +40,7 @@
 			$(document).ready(function(){
 				$("#header-title").html(document.title);
 				$("#ver").html(app.ver);
-				$("#text").html(app.msg.replace("\n","<br>"));
+				$("#text").html(app.msg.replace(new RegExp("\n",'g'),"<br>"));
 				$("#dld")[0].className = "primary";
 				$("#dld")[0].disabled = false;
 				$("#dld").html("下载");
